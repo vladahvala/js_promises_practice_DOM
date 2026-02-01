@@ -60,7 +60,7 @@ promise2
 
 // --- thirdPromise ---
 const promise3 = new Promise((resolve, reject) => {
-  const settled = false;
+  let settled = false;
   let left = false;
   let right = false;
 
@@ -78,6 +78,7 @@ const promise3 = new Promise((resolve, reject) => {
     }
 
     if (left && right) {
+      settled = true;
       body.removeEventListener('mousedown', handler);
 
       resolve(
