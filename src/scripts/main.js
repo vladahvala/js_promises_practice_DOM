@@ -15,7 +15,7 @@ const promise1 = new Promise((resolve, reject) => {
       settled = true;
       clearTimeout(timeoutId);
       body.removeEventListener('click', clickHandler);
-      resolve('First promise was resolved on a left click in the document');
+      resolve('First promise was resolved');
     }
   };
 
@@ -27,7 +27,7 @@ const promise1 = new Promise((resolve, reject) => {
     }
     settled = true;
     body.removeEventListener('click', clickHandler);
-    reject(new Error('First promise was rejected in 3 seconds if not clicked'));
+    reject(new Error('First promise was rejected'));
   }, 3000);
 });
 
@@ -46,25 +46,12 @@ const promise2 = new Promise((resolve, reject) => {
 
     if (e.button === 0 || e.button === 2) {
       settled = true;
-      clearTimeout(timeoutId);
       body.removeEventListener('mousedown', handler);
       resolve('Second promise was resolved');
     }
   };
 
   body.addEventListener('mousedown', handler);
-
-  const timeoutId = setTimeout(() => {
-    if (settled) {
-      return;
-    }
-    settled = true;
-    body.removeEventListener('mousedown', handler);
-
-    reject(
-      new Error('Second promise was not resolved because no click happened'),
-    );
-  }, 3000);
 });
 
 promise2
@@ -95,7 +82,7 @@ const promise3 = new Promise((resolve, reject) => {
 
       resolve(
         // eslint-disable-next-line max-len
-        'Third promise was resolved only after both left and right clicks happened',
+        'Third promise was resolved',
       );
     }
   };
